@@ -1,18 +1,12 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import DateTimePicker from '@mui/lab/DateTimePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import esLocale from 'date-fns/locale/es';
+import {NORMAL_RATE, EXTRA_MORNING_RATE, EXTRA_AFTERNOON_RATE} from './HourRate';
 import {
   BrowserRouter as Router,
   Switch,
@@ -37,10 +31,10 @@ function Copyright(props) {
 function App() {
 
   const [records, setRecords] = React.useState({
-    '12/10/2021': { startTime: 0, endTime: 0, normal: 1, extra: 0 },
-    '13/10/2021': { startTime: 0, endTime: 0, normal: 1, extra: 0 },
-    '14/10/2021': { startTime: 0, endTime: 0, normal: 1, extra: 0 },
-    '15/10/2021': { startTime: 0, endTime: 0, normal: 1, extra: 0 },
+    '12/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
+    '13/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
+    '14/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
+    '15/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0}, [EXTRA_MORNING_RATE]: {hours: 1, minutes: 15} } },
   });
 
   const addRecord = (record) => {
@@ -54,7 +48,7 @@ function App() {
       <CssBaseline />
       <Router>
         <div>
-          <RouterLink to="/">Home</RouterLink> | <RouterLink to="/add">Add</RouterLink>
+          <RouterLink to="/">Inicio</RouterLink> | <RouterLink to="/add">Añadir</RouterLink>
         </div>
         <Switch>
           <Route path="/add">

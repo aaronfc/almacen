@@ -1,27 +1,39 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import DateTimePicker from '@mui/lab/DateTimePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import esLocale from 'date-fns/locale/es';
+
+import {HOUR_RATE_INFO} from '../HourRate';
+
+function Shift(props) {
+    let {date, data} = props;
+    let rated = data.rated;
+    let earned = Object.entries(rated).reduce((result, [type, data]) => result + (data.hours + data.minutes / 60) * HOUR_RATE_INFO[type].rate, 0);
+    return (
+        <div>
+            <div><u>{date}</u> - <span>{earned} &euro;</span></div>
+            <div>
+                {Object.entries(HOUR_RATE_INFO).map(([rateType, rateData]) => {
+                        if (rated[rateType] !== undefined) {
+                            let shiftPart = rated[rateType];
+                            let isNotEmpty = (shiftPart.hours > 0 || shiftPart.minutes > 0);
+                            if (isNotEmpty) {
+                                return <span
+                                    key={rateType}>{rateData.shortName}: {shiftPart.hours}h{shiftPart.minutes}m </span>
+                            }
+                        }
+                    }
+                )}
+            </div>
+        </div>
+    );
+}
 
 function Home(props) {
-  return (
-    <div>
-      <div>Home!</div>
-      <div>
-        {Object.entries(props.records).map(([date, record]) => <div>{date}</div>)}
-      </div>
-    </div>
+    return (
+        <div>
+            <h1>Jornadas</h1>
+            <div>
+                {Object.entries(props.records).map(([date, record]) => <Shift key={date} date={date} data={record}/>)}
+            </div>
+        </div>
     );
 }
 
