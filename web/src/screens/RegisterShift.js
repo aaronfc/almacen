@@ -54,6 +54,7 @@ function RegisterShift(props) {
         */
         let startDate = new Date(startTime);
         props.addRecord({
+            date: startTime.toISOString().split('T')[0], // YYYY-MM-DD
             startTime: startTime,
             endTime: endTime,
             rated: {

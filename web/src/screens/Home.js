@@ -3,8 +3,8 @@ import * as React from 'react';
 import {HOUR_RATE_INFO} from '../HourRate';
 
 function Shift(props) {
-    let {date, data} = props;
-    let rated = data.rated;
+    let {data} = props;
+    let {date, rated} = data;
     let earned = Object.entries(rated).reduce((result, [type, data]) => result + (data.hours + data.minutes / 60) * HOUR_RATE_INFO[type].rate, 0);
     return (
         <div>
@@ -31,7 +31,7 @@ function Home(props) {
         <div>
             <h1>Jornadas</h1>
             <div>
-                {Object.entries(props.records).map(([date, record]) => <Shift key={date} date={date} data={record}/>)}
+                {Object.entries(props.records).map(([i, record]) => <Shift key={i} data={record}/>)}
             </div>
         </div>
     );

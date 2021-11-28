@@ -7,6 +7,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import esLocale from 'date-fns/locale/es';
 import {NORMAL_RATE, EXTRA_MORNING_RATE, EXTRA_AFTERNOON_RATE} from './HourRate';
+import api from "./api";
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,6 +16,7 @@ import {
 } from "react-router-dom";
 import RegisterShift from './screens/RegisterShift';
 import Home from './screens/Home';
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Copyright(props) {
   return (
@@ -30,12 +32,17 @@ function Copyright(props) {
 
 function App() {
 
-  const [records, setRecords] = React.useState({
-    '12/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
-    '13/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
-    '14/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
-    '15/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0}, [EXTRA_MORNING_RATE]: {hours: 1, minutes: 15} } },
-  });
+  const [records, setRecords] = React.useState(null);
+  const [isFetching, setFetching] = React.useState(true);
+
+  api.getAllShifts("mageles").then(records => setRecords(records));
+
+  // const [records, setRecords] = React.useState({
+  //   '12/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
+  //   '13/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
+  //   '14/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0} } },
+  //   '15/10/2021': { startTime: 0, endTime: 0, rated: {[NORMAL_RATE]: {hours: 8, minutes: 0}, [EXTRA_MORNING_RATE]: {hours: 1, minutes: 15} } },
+  // });
 
   const addRecord = (record) => {
     let date = (new Date(record.startTime)).toLocaleDateString('es-ES');
@@ -55,7 +62,7 @@ function App() {
             <RegisterShift addRecord={addRecord}/>
           </Route>
           <Route path="/">
-            <Home records={records}/>
+            {records == null ? <CircularProgress /> : <Home records={records}/>}
           </Route>
         </Switch>
       </Router>
