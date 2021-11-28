@@ -19,8 +19,8 @@ import {
   Route,
   Link as RouterLink
 } from "react-router-dom";
-import AddWorkingTimeScreen from './AddWorkingTimeScreen';
-import HomeScreen from './HomeScreen';
+import RegisterShift from './screens/RegisterShift';
+import Home from './screens/Home';
 
 function Copyright(props) {
   return (
@@ -54,14 +54,14 @@ function App() {
       <CssBaseline />
       <Router>
         <div>
-          <RouterLink to="/">Home</RouterLink>  <RouterLink to="/add">Add</RouterLink> 
+          <RouterLink to="/">Home</RouterLink> | <RouterLink to="/add">Add</RouterLink>
         </div>
         <Switch>
           <Route path="/add">
-            <AddWorkingTimeScreen addRecord={addRecord}/>
+            <RegisterShift addRecord={addRecord}/>
           </Route>
           <Route path="/">
-            <HomeScreen records={records}/>
+            <Home records={records}/>
           </Route>
         </Switch>
       </Router>

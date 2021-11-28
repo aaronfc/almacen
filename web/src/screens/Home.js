@@ -14,7 +14,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import esLocale from 'date-fns/locale/es';
 
-function HomeScreen(props) {
+function Home(props) {
   return (
     <div>
       <div>Home!</div>
@@ -25,4 +25,4 @@ function HomeScreen(props) {
     );
 }
 
-export default HomeScreen;
+export default Home;

@@ -13,10 +13,10 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import esLocale from 'date-fns/locale/es';
-import { HOUR_RATE_NORMAL, HOUR_RATE_EXTRA_MORNING, HOUR_RATE_INFO } from './HourRate';
+import { HOUR_RATE_NORMAL, HOUR_RATE_EXTRA_MORNING, HOUR_RATE_INFO } from '../HourRate';
 
 
-function AddWorkingTimeScreen(props) {
+function RegisterShift(props) {
   const [startTime, setStartTimeValue] = React.useState(new Date().setHours(14, 0, 0));
   const [endTime, setEndTimeValue] = React.useState(new Date().setHours(22, 0, 0));
   const [hoursData, setHoursDataValue] = React.useState({
@@ -121,4 +121,4 @@ function AddWorkingTimeScreen(props) {
     );
 }
 
-export default AddWorkingTimeScreen;
+export default RegisterShift;
